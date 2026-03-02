@@ -12,6 +12,7 @@ import 'package:widget_ai/service/locator.dart';
 import 'package:widget_ai/service/shared_preference.dart';
 import 'package:widget_ai/service/web_search_service.dart';
 import 'package:widget_ai/model/chat_message.dart';
+import 'package:widget_ai/llm/multi_agent_orchestrator.dart';
 import 'dart:convert';
 
 // ---------------------------------------------------------------------------
@@ -67,6 +68,9 @@ class ProgrammingAssistant {
   /// Tools available to the assistant.
   late final List<lc.ToolSpec> _tools;
 
+  /// Orchestrator for multi-agent workflows.
+  late final MultiAgentOrchestrator _orchestrator;
+
   // ── Public API ────────────────────────────────────────────────────────────
 
   /// Must be called once before any chat interaction.
@@ -117,6 +121,7 @@ class ProgrammingAssistant {
       // 4. Resolve and cache the project folder path.
       _projectFolderPath = await _fileSystemIO.getWidgetAssetDirectoty(_sanitiseFolderName(projectDetails.appName));
       await _localStorage.setString(_kProjectFolderKey, _projectFolderPath!);
+      _orchestrator = MultiAgentOrchestrator(model: _llmModel);
     } catch (e) {
       Fluttertoast.showToast(msg: 'Failed to load system prompt $e');
     }
@@ -221,6 +226,11 @@ class ProgrammingAssistant {
       isCodeFinalized: isCodeFinalized,
       savedFiles: savedFiles,
     );
+  }
+
+  /// Starts the multi-agent workflow for the given project requirements.
+  Stream<OrchestratorStep> startMultiAgentWorkflow(String requirement, AppProjectDetails details) {
+    return _orchestrator.runWorkflow(requirement, {'appName': details.appName, 'description': details.description});
   }
 
   /// Rebuilds the internal [_history] from a list of persisted [ChatMessage]s.
