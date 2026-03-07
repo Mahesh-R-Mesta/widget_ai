@@ -84,9 +84,9 @@ class _CreateWidgetPageState extends State<CreateWidgetPage> {
             SizedBox(height: 20.h),
             CommonTextField(
               controller: _descriptionController,
-              hintText: "Describe what your app does...",
-              labelText: "App Description",
-              maxLines: 2,
+              hintText: "Enter the prompt for app building using AI. Describe features, layout, and purpose...",
+              labelText: "AI App Building Prompt",
+              maxLines: 6,
               prefixIcon: const Icon(Icons.description_rounded, color: AppColors.primary),
             ),
             SizedBox(height: 24.h),

@@ -146,9 +146,11 @@ class _ChatWindowState extends State<ChatWindow> {
         List<ChatMessage> messages = [];
         bool isTyping = false;
 
+        String? typingMessage;
         if (state is ChatLoaded) {
           messages = state.messages;
           isTyping = state.isTyping;
+          typingMessage = state.typingMessage;
         } else if (state is ChatLoading) {
           messages = state.messages;
           isTyping = true;
@@ -164,7 +166,7 @@ class _ChatWindowState extends State<ChatWindow> {
           itemCount: messages.length + (isTyping ? 1 : 0),
           itemBuilder: (context, index) {
             if (isTyping && index == messages.length) {
-              return _buildTypingIndicator();
+              return _buildTypingIndicator(typingMessage);
             }
             return MessageBubble(message: messages[index]);
           },
@@ -173,8 +175,8 @@ class _ChatWindowState extends State<ChatWindow> {
     );
   }
 
-  Widget _buildTypingIndicator() {
-    return const TypingIndicator();
+  Widget _buildTypingIndicator(String? message) {
+    return TypingIndicator(message: message);
   }
 
   Widget _buildInputArea() {
@@ -299,7 +301,8 @@ class _ChatWindowState extends State<ChatWindow> {
 // ── Refined Typing Indicator ───────────────────────────────────────────────
 
 class TypingIndicator extends StatefulWidget {
-  const TypingIndicator({super.key});
+  final String? message;
+  const TypingIndicator({super.key, this.message});
 
   @override
   State<TypingIndicator> createState() => _TypingIndicatorState();
@@ -351,14 +354,31 @@ class _TypingIndicatorState extends State<TypingIndicator> with SingleTickerProv
                 BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
               ],
             ),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                _Dot(delay: 0),
-                SizedBox(width: 4.w),
-                _Dot(delay: 150),
-                SizedBox(width: 4.w),
-                _Dot(delay: 300),
+                if (widget.message != null) ...[
+                  Text(
+                    widget.message!,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary.withValues(alpha: 0.8),
+                    ),
+                  ),
+                  SizedBox(height: 6.h),
+                ],
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _Dot(delay: 0),
+                    SizedBox(width: 4.w),
+                    _Dot(delay: 150),
+                    SizedBox(width: 4.w),
+                    _Dot(delay: 300),
+                  ],
+                ),
               ],
             ),
           ),

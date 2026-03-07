@@ -38,7 +38,7 @@ class ChatCubit extends Cubit<ChatState> {
   /// Inserts a project row into the DB, initialises the LLM session, and emits
   /// the opening Phase 1 clarification questions from the assistant.
   Future<void> initialise(AppProjectDetails projectDetails) async {
-    emit(ChatLoaded(messages: List.from(_messages), isTyping: true));
+    emit(ChatLoaded(messages: List.from(_messages), isTyping: true, typingMessage: 'Setting up your project...'));
     try {
       // 1. Persist the project immediately so it shows on the home screen.
       _projectId = await _db.insertProject(
@@ -55,6 +55,9 @@ class ChatCubit extends Cubit<ChatState> {
       await _assistant.initialise(projectDetails, model);
 
       // 3. Kick off Phase 1.
+      emit(
+        ChatLoaded(messages: List.from(_messages), isTyping: true, typingMessage: 'Curating project requirements...'),
+      );
       final opening = await _assistant.sendMessage('Hello! I have a new project for you. Please start Phase 1.');
       final botMessage = ChatMessage(
         text: opening.text,
@@ -79,7 +82,7 @@ class ChatCubit extends Cubit<ChatState> {
   /// without sending any new message to the LLM.
   Future<void> restoreSession(int projectId) async {
     _projectId = projectId;
-    emit(ChatLoaded(messages: List.from(_messages), isTyping: true));
+    emit(ChatLoaded(messages: List.from(_messages), isTyping: true, typingMessage: 'Restoring project history...'));
     try {
       final project = await _db.getProjectById(projectId);
       final List<ChatMessage> history;
@@ -114,7 +117,7 @@ class ChatCubit extends Cubit<ChatState> {
     if (text.trim().isEmpty) return;
     final userMessage = ChatMessage(text: text, sender: MessageSender.user, type: MessageType.text);
     _messages.add(userMessage);
-    emit(ChatLoaded(messages: List.from(_messages), isTyping: true));
+    emit(ChatLoaded(messages: List.from(_messages), isTyping: true, typingMessage: 'Architecting solution...'));
 
     try {
       final reply = await _assistant.sendMessage(text);
@@ -166,7 +169,7 @@ class ChatCubit extends Cubit<ChatState> {
       final bytes = file.bytes;
       final userMessage = ChatMessage(filePath: path, sender: MessageSender.user, type: type);
       _messages.add(userMessage);
-      emit(ChatLoaded(messages: List.from(_messages), isTyping: true));
+      emit(ChatLoaded(messages: List.from(_messages), isTyping: true, typingMessage: 'Analyzing visual context...'));
 
       final typeName = type == MessageType.image ? 'image' : 'document';
       final mimeType = type == MessageType.image ? 'image/${path.split('.').last}' : null;

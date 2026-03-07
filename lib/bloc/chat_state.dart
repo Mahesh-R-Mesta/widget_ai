@@ -12,8 +12,9 @@ class ChatLoading extends ChatState {
 class ChatLoaded extends ChatState {
   final List<ChatMessage> messages;
   final bool isTyping;
+  final String? typingMessage;
 
-  ChatLoaded({required this.messages, this.isTyping = false});
+  ChatLoaded({required this.messages, this.isTyping = false, this.typingMessage});
 }
 
 class ChatError extends ChatState {
