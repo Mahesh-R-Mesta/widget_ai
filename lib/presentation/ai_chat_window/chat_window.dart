@@ -7,8 +7,8 @@ import 'package:widget_ai/llm/programing_assistant.dart';
 import 'package:widget_ai/model/app_project_details.dart';
 import 'package:widget_ai/model/chat_message.dart';
 import 'package:widget_ai/model/database.dart';
-import 'package:widget_ai/presentation/chat/widgets/message_bubble.dart';
-import 'package:widget_ai/presentation/web_app_view.dart';
+import 'package:widget_ai/presentation/ai_chat_window/widgets/message_bubble.dart';
+import 'package:widget_ai/presentation/playground/web_app_view.dart';
 import 'package:widget_ai/service/locator.dart';
 import 'package:widget_ai/utility/theme.dart';
 

@@ -3,7 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:widget_ai/model/database.dart';
-import 'package:widget_ai/presentation/web_app_view.dart';
+import 'package:widget_ai/presentation/playground/web_app_view.dart';
 import 'package:widget_ai/service/file_system.dart';
 import 'package:widget_ai/service/home_widget_service.dart';
 import 'package:widget_ai/service/locator.dart';
@@ -36,7 +36,7 @@ class _WidgetScreenState extends State<WidgetScreen> {
       backgroundColor: const Color(0xFFF5F5F7),
       appBar: AppBar(
         title: Text(
-          'Widget AI',
+          'CRAFT APP',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22.sp),
         ),
         backgroundColor: Colors.white,
