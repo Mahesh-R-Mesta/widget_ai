@@ -1,8 +1,8 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:widget_ai/llm/gemin_model.dart';
-import 'package:widget_ai/llm/antropic_model.dart';
+import 'package:widget_ai/llm/models/gemin_model.dart';
+import 'package:widget_ai/llm/models/antropic_model.dart';
 import 'package:widget_ai/llm/programing_assistant.dart';
 import 'package:widget_ai/model/database.dart';
 import 'package:widget_ai/service/file_system.dart';

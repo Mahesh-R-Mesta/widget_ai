@@ -5,7 +5,7 @@ import 'package:langchain_google/langchain_google.dart';
 import 'package:langchain_core/chat_models.dart' as lc;
 import 'package:langchain_core/prompts.dart' as lc;
 import 'package:langchain_core/tools.dart' as lc;
-import 'package:widget_ai/llm/base_model.dart';
+import 'package:widget_ai/llm/models/base_model.dart';
 import 'package:widget_ai/model/app_project_details.dart';
 import 'package:widget_ai/service/file_system.dart';
 import 'package:widget_ai/service/locator.dart';

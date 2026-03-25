@@ -1,5 +1,5 @@
 import 'package:widget_ai/llm/agents/base_agent.dart';
-import 'package:widget_ai/llm/base_model.dart';
+import 'package:widget_ai/llm/models/base_model.dart';
 
 class DebuggerAgent extends BaseAgent {
   final BaseLLMModel model;

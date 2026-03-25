@@ -1,6 +1,6 @@
 import 'package:langchain_core/chat_models.dart' as lc;
 import 'package:widget_ai/llm/agents/base_agent.dart';
-import 'package:widget_ai/llm/base_model.dart';
+import 'package:widget_ai/llm/models/base_model.dart';
 import 'package:widget_ai/llm/agents/planner_agent.dart';
 import 'package:widget_ai/llm/agents/coder_agent.dart';
 import 'package:widget_ai/llm/agents/reviewer_agent.dart';

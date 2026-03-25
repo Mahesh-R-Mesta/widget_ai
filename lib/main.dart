@@ -4,7 +4,7 @@ import 'package:home_widget/home_widget.dart';
 import 'package:widget_ai/model/database.dart';
 import 'package:widget_ai/presentation/create_widget_page.dart';
 import 'package:widget_ai/presentation/home.dart';
-import 'package:widget_ai/presentation/web_app_view.dart';
+import 'package:widget_ai/presentation/playground/web_app_view.dart';
 import 'package:widget_ai/service/locator.dart';
 import 'package:widget_ai/utility/theme.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
